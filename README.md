@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![Aqua Stark Banner](https://github.com/user-attachments/assets/f2d38439-8e4f-45c6-a087-c53dd8bdca98)
 
-## Getting Started
+# 🌊Aqua Stark 🐠
 
-First, run the development server:
+**Aqua Stark** is a Web3 game on **StarkNet** where players can **collect, raise and evolve fish** in a decentralized ecosystem. 🏝️🎮
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Features  
+✔️ **Fish breeding and evolution** with unique genetics.  
+✔️ **Decentralized Marketplace** to buy and sell fish and decorations.  
+✔️ **True asset ownership** thanks to StarkNet and Cairo.  
+✔️ **Aquarium customization** with exclusive items and expansions.  
+✔️ **Special events and tournaments** with rare fish and rewards.  
+
+## 🛠️Technologies  
+- **Front**: React + Next + TailwindCSS
+  
+## 📂Project Architecture
+
+```sh
+/Aqua-Stark-Game
+├── .github/ISSUE_TEMPLATE       # GitHub issue templates
+├── public                       # Static assets served at root (e.g. /favicon.ico)
+├── src/app                      # Main app source code (Next.js App Router)
+├── .gitignore                   # Specifies ignored files/folders in Git
+├── README.md                    # This file
+├── eslint.config.mjs            # ESLint config for code linting
+├── next.config.ts               # Next.js configuration file
+├── package-lock.json            # Dependency lock file for reproducible installs
+├── package.json                 # Project metadata, scripts, and dependencies
+├── postcss.config.mjs           # PostCSS config, usually for Tailwind
+├── tsconfig.json                # TypeScript compiler configuration
+
+```
+## 🌍 Connecting to StarkNet  
+To play, make sure you have a StarkNet-compatible wallet like **ArgentX** or **Braavos**. 
+
+## 🤝 Contributing  
+Aqua Stark is an **open-source** project! To contribute, follow these steps:  
+
+1️⃣ **Fork the repository**  
+```sh
+git fork https://github.com/AquaStark/Aqua-Stark.git  
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2️⃣ **Clone your fork**
+```sh
+git clone https://github.com/YOUR_USERNAME/Aqua-Stark.git  
+cd Aqua-Stark  
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3️⃣ **Create a new branch**
+```sh
+git checkout -b feature-new  
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4️⃣ **Make your changes and commit them**
+```sh
+git commit -m "feat: Add new feature"  
+```
 
-## Learn More
+5️⃣ **Push the changes to your fork**
+```sh
+git push origin feature-new  
+```
 
-To learn more about Next.js, take a look at the following resources:
+6️⃣ **Open a Pull Request 🚀**  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🔀 Branch Naming Conventions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `feat/feature-name` → For new features  
+- `fix/bug-name` → For bug fixes  
+- `chore/task-name` → For maintenance or refactoring  
+- `docs/documentation-change` → For documentation updates  
 
-## Deploy on Vercel
+### 📝 Commit Message Guidelines
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `feat: add new login functionality`  
+- `fix: resolve issue with fish animations`  
+- `chore: refactor contract logic`  
+- `docs: update README with latest changes`  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🌊🐠 **Dive into Aqua Stark and build your dream aquarium!** 🎮🚀  
