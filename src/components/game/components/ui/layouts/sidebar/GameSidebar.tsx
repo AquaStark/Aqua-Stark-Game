@@ -1,6 +1,6 @@
 import React from "react";
 import { Droplets, Leaf, Sparkles, Palette, Layers } from "lucide-react";
-import { GameButton } from "../../components/ui/buttons/GameButton";
+import { GameButton } from "../../buttons/GameButton";
 
 const SIDEBAR_BUTTONS = [
   { icon: "🌿", color: "from-green-400 to-green-600", tooltip: "Plants" },

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { GameHeader } from "../../../layouts/header/GameHeader";
-import { GameSidebarButtons } from "../../../layouts/sidebar/GameSidebar";
+import { GameHeader } from "../layouts/header/GameHeader";
+import { GameSidebarButtons } from "../layouts/sidebar/GameSidebar";
 import { AquariumTabs } from "../../../../aquarium/components/ui/tabs/AquariumTabs";
 import { TipsPopup } from "../tips/TipsPopup";
 import { FishDisplay } from "../../../../aquarium/components/ui/display/FishDisplay";

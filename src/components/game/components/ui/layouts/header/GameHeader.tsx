@@ -1,6 +1,6 @@
 import { Fish } from "lucide-react";
-import { GameButton } from "../../components/ui/buttons/GameButton";
-import { GameStatusBar } from "../../components/ui/status/GameStatusBar";
+import { GameButton } from "../../buttons/GameButton";
+import { GameStatusBar } from "../../status/GameStatusBar";
 
 interface GameHeaderProps {
   happiness: number;
