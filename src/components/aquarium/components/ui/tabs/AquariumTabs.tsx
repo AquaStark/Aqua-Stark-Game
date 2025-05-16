@@ -1,6 +1,10 @@
-import React from "react";
+"use client";
+
+import type React from "react";
+
 import { Grid } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAquariumTabs } from "@/components/aquarium/hooks/AquariumTabs";
 
 interface AquariumTabProps {
   name: string;
@@ -37,6 +41,12 @@ export function AquariumTabs({
   selectedAquarium,
   onAquariumSelect,
 }: AquariumTabsProps) {
+  const { handleTabClick, handleViewAllClick, isTabActive } = useAquariumTabs({
+    aquariums,
+    selectedAquarium,
+    onAquariumSelect,
+  });
+
   return (
     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-900/90 to-transparent z-20 p-4">
       <div className="flex justify-between items-end">
@@ -45,15 +55,15 @@ export function AquariumTabs({
             <AquariumTab
               key={aquarium}
               name={aquarium}
-              active={selectedAquarium === aquarium}
-              onClick={() => onAquariumSelect(aquarium)}
+              active={isTabActive(aquarium)}
+              onClick={() => handleTabClick(aquarium)}
             />
           ))}
           <AquariumTab
             name="View All"
             active={false}
             icon={<Grid className="h-4 w-4 mr-1" />}
-            onClick={() => alert("View All Aquariums")}
+            onClick={handleViewAllClick}
           />
         </div>
       </div>

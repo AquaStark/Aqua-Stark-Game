@@ -1,8 +1,8 @@
 "use client";
 
 import type React from "react";
-import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
+import { useGameStatusBar } from "../../hooks/GameStatus.hook";
 
 interface GameStatusBarProps {
   icon: string | React.ReactNode;
@@ -23,45 +23,12 @@ export function GameStatusBar({
   showPercentage = true,
   animated = true,
 }: GameStatusBarProps) {
-  const [displayValue, setDisplayValue] = useState(value);
-  const [isIncreasing, setIsIncreasing] = useState(false);
-  const [isDecreasing, setIsDecreasing] = useState(false);
-  const prevValueRef = useRef(value);
-
-  const percentage = Math.min(Math.max(0, (value / maxValue) * 100), 100);
-
-  useEffect(() => {
-    if (value !== prevValueRef.current) {
-      if (value > prevValueRef.current) {
-        setIsIncreasing(true);
-        setTimeout(() => setIsIncreasing(false), 1000);
-      } else {
-        setIsDecreasing(true);
-        setTimeout(() => setIsDecreasing(false), 1000);
-      }
-
-      if (animated) {
-        const diff = value - prevValueRef.current;
-        const steps = 20;
-        const increment = diff / steps;
-        let currentStep = 0;
-
-        const interval = setInterval(() => {
-          currentStep++;
-          setDisplayValue(prevValueRef.current + increment * currentStep);
-
-          if (currentStep >= steps) {
-            clearInterval(interval);
-            setDisplayValue(value);
-          }
-        }, 20);
-      } else {
-        setDisplayValue(value);
-      }
-
-      prevValueRef.current = value;
-    }
-  }, [value, animated]);
+  const { displayValue, percentage, isIncreasing, isDecreasing } =
+    useGameStatusBar({
+      value,
+      maxValue,
+      animated,
+    });
 
   return (
     <div className="relative flex items-center gap-3 min-w-[250px]">

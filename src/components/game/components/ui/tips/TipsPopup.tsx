@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react";
+"use client";
 import { X } from "lucide-react";
 import { GameButton } from "../buttons/GameButton";
+import { useTipsPopup } from "../../hooks/TipsPopup.hook";
 
 interface TipsPopupProps {
   show: boolean;
@@ -9,32 +10,7 @@ interface TipsPopupProps {
 }
 
 export function TipsPopup({ show, onClose, onToggle }: TipsPopupProps) {
-  const popupRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        popupRef.current &&
-        !popupRef.current.contains(event.target as Node)
-      ) {
-        onClose();
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [onClose]);
-
-  useEffect(() => {
-    if (show) {
-      const timer = setTimeout(() => {
-        onClose();
-      }, 8000);
-      return () => clearTimeout(timer);
-    }
-  }, [show, onClose]);
+  const { popupRef } = useTipsPopup({ show, onClose });
 
   return (
     <div className="relative">

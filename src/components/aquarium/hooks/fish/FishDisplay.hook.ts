@@ -1,53 +1,53 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { FishType } from "@/@types/Game";
-import { Fish } from "@/components/aquarium/components/ui/fish/Fish";
+import type { FishType } from "@/@types/Game";
 import { useFishMovement } from "@/components/aquarium/hooks/fish/FishMovement.hook";
 
-interface FishDisplayProps {
+// Sample fish data for generating additional fish
+const sampleFishData: Partial<FishType>[] = [
+  {
+    name: "Blue Striped Fish",
+    image: "/fish/fish1.png",
+    rarity: "Rare",
+    generation: 1,
+  },
+  {
+    name: "Tropical Coral Fish",
+    image: "/fish/fish2.png",
+    rarity: "Uncommon",
+    generation: 2,
+  },
+  {
+    name: "Orange Tropical Fish",
+    image: "/fish/fish3.png",
+    rarity: "Epic",
+    generation: 1,
+  },
+  {
+    name: "Scarlet Fin",
+    image: "/fish/fish4.png",
+    rarity: "Legendary",
+    generation: 1,
+  },
+];
+
+// Fallback images if fish images don't load
+const fallbackImages = ["/fish/fish1.png"];
+
+interface UseFishDisplayProps {
   fish: FishType[];
   containerWidth?: number;
   containerHeight?: number;
   minFishCount?: number;
 }
 
-const sampleFishData: Partial<FishType>[] = [
-  {
-    name: "Blue Striped Fish",
-    image: "/fish/fish1.png", // Make sure this file exists
-    rarity: "Rare",
-    generation: 1,
-  },
-  {
-    name: "Tropical Coral Fish",
-    image: "/fish/fish2.png", // Make sure this file exists
-    rarity: "Uncommon",
-    generation: 2,
-  },
-  {
-    name: "Orange Tropical Fish",
-    image: "/fish/fish3.png", // Make sure this file exists
-    rarity: "Epic",
-    generation: 1,
-  },
-  {
-    name: "Scarlet Fin",
-    image: "/fish/fish4.png", // Make sure this file exists
-    rarity: "Legendary",
-    generation: 1,
-  },
-];
-
-// Fallback to these guaranteed paths if the fish images don't load
-const fallbackImages = [
-  "/fish/fish1.png", // This is our guaranteed file
-];
-
-export function FishDisplay({
+export function useFishDisplay({
   fish,
   containerWidth = 1000,
   containerHeight = 600,
-  minFishCount = 15, // Increase fish count even more for visibility
-}: FishDisplayProps) {
+  minFishCount = 15,
+}: UseFishDisplayProps) {
   // Set up container dimensions for fish movement
   const [dimensions, setDimensions] = useState({
     width: containerWidth,
@@ -75,7 +75,6 @@ export function FishDisplay({
         const uniqueId = 1000 + fish.length + i;
 
         // Create a more distributed starting layout
-        // This ensures fish are spread across the entire aquarium
         const xPos = 10 + (i % 5) * 20 + Math.random() * 10; // 10-90% width range
         const yPos = 10 + Math.floor(i / 5) * 20 + Math.random() * 10; // 10-90% height range
 
@@ -83,7 +82,6 @@ export function FishDisplay({
         additionalFish.push({
           id: uniqueId,
           name: sampleFish.name || `Fish ${uniqueId}`,
-          // Make sure the image path is correctly resolved
           image: sampleFish.image || fallbackImage,
           position: {
             x: xPos,
@@ -121,9 +119,6 @@ export function FishDisplay({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Log when dimensions change to help debug
-  useEffect(() => {}, [dimensions]);
-
   // Use the fish movement hook to animate fish positions
   const fishWithMovement = useFishMovement(allFish, {
     aquariumBounds: dimensions,
@@ -138,33 +133,14 @@ export function FishDisplay({
     const missingIds = [...allFishIds].filter((id) => !movementFishIds.has(id));
 
     if (missingIds.length > 0) {
+      // This was empty in the original code
     }
   }, [allFish, fishWithMovement]);
 
-  return (
-    <div className="relative w-full h-full fish-container overflow-hidden bg-cyan-500/20">
-      {/* Display the number of fish for debugging */}
-      <div className="absolute top-0 right-0 p-2 text-white text-xs opacity-50 z-50">
-        Fish count: {fishWithMovement.length}
-      </div>
-
-      {fishWithMovement.map((fishState) => {
-        // Find the original fish data by ID
-        const fishData = allFish.find((f) => f.id === fishState.id);
-        if (!fishData) {
-          return null;
-        }
-
-        return (
-          <Fish
-            key={fishData.id}
-            fish={fishData}
-            position={fishState.position}
-            facingLeft={fishState.facingLeft}
-            behaviorState={fishState.behaviorState}
-          />
-        );
-      })}
-    </div>
-  );
+  return {
+    fishWithMovement,
+    allFish,
+    dimensions,
+    fishCount: fishWithMovement.length,
+  };
 }
