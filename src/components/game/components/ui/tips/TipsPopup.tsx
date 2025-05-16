@@ -1,7 +1,7 @@
 "use client";
 import { X } from "lucide-react";
 import { GameButton } from "../buttons/GameButton";
-import { useTipsPopup } from "../../hooks/TipsPopup.hook";
+import { useTipsPopup } from "../../../hooks/TipsPopup.hook";
 
 interface TipsPopupProps {
   show: boolean;

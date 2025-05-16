@@ -2,7 +2,7 @@
 
 import type React from "react";
 import { cn } from "@/lib/utils";
-import { useGameStatusBar } from "../../hooks/GameStatus.hook";
+import { useGameStatusBar } from "../../../hooks/GameStatus.hook";
 
 interface GameStatusBarProps {
   icon: string | React.ReactNode;
