@@ -1,4 +1,7 @@
-import { ItemType } from "@/components/storage/data/mock-game";
+"use client";
+
+import type { ItemType } from "@/components/storage/data/mock-game";
+import { useStoreTabs } from "@/components/storage/hooks/use-store-tabs";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface StoreTabsProps {
@@ -7,37 +10,32 @@ interface StoreTabsProps {
 }
 
 export function StoreTabs({ activeTab, onTabChange }: StoreTabsProps) {
+  const { tabs, handleTabChange } = useStoreTabs({ activeTab, onTabChange });
+
   return (
-    <Tabs
-      value={activeTab}
-      onValueChange={(value: string) => onTabChange(value as ItemType)}
-      className="w-full"
-    >
+    <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
       <TabsList className="flex items-center justify-start w-full gap-0.5 p-0 bg-transparent md:w-fit">
-        <TabsTrigger
-          value="fish"
-          className="font-bold rounded-none rounded-tl-3xl py-4 md:py-3 md:pl-6 md:pr-4 md:rounded-none text-white uppercase data-[state=active]:bg-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-500 data-[state=inactive]:border-none data-[state=active]:text-white data-[state=inactive]:text-white"
-        >
-          Fish
-        </TabsTrigger>
-        <TabsTrigger
-          value="food"
-          className="font-bold rounded-none py-4 md:py-3 md:px-4 md:rounded-none text-white uppercase data-[state=active]:bg-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-500 data-[state=inactive]:border-none data-[state=active]:text-white data-[state=inactive]:text-white"
-        >
-          Food
-        </TabsTrigger>
-        <TabsTrigger
-          value="decorations"
-          className="font-bold rounded-none py-4 md:py-3 md:px-4 md:rounded-none text-white uppercase data-[state=active]:bg-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-500 data-[state=inactive]:border-none data-[state=active]:text-white data-[state=inactive]:text-white"
-        >
-          Decorations
-        </TabsTrigger>
-        <TabsTrigger
-          value="others"
-          className="font-bold rounded-none rounded-tr-3xl py-4 md:py-3 md:px-4 md:rounded-none text-white uppercase data-[state=active]:bg-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-500 data-[state=inactive]:border-none data-[state=active]:text-white data-[state=inactive]:text-white"
-        >
-          Others
-        </TabsTrigger>
+        {tabs.map((tab) => (
+          <TabsTrigger
+            key={tab.value}
+            value={tab.value}
+            className={`font-bold py-4 md:py-3 md:px-4 text-white uppercase 
+              data-[state=active]:bg-blue-700 
+              data-[state=active]:border-b-2 
+              data-[state=active]:border-b-orange-500 
+              data-[state=inactive]:border-none 
+              data-[state=active]:text-white 
+              data-[state=inactive]:text-white
+              ${
+                tab.isFirst
+                  ? "rounded-tl-3xl md:pl-6 md:pr-4 md:rounded-none"
+                  : "rounded-none"
+              }
+              ${tab.isLast ? "rounded-tr-3xl md:rounded-none" : ""}`}
+          >
+            {tab.label}
+          </TabsTrigger>
+        ))}
       </TabsList>
     </Tabs>
   );

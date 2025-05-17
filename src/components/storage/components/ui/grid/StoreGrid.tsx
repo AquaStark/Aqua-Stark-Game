@@ -1,32 +1,17 @@
-import StoreItem from "../item/StoreItem";
+"use client";
 
-interface StoreItemData {
-  id?: string;
-  name: string;
-  image: string;
-  price: number;
-  rarity: string;
-  description?: string;
-  rating?: number;
-  originalPrice?: number;
-  isNew?: boolean;
-  stock?: number;
-  isLimited?: boolean;
-  category?: string;
-}
+import {
+  StoreItemData,
+  useStoreGrid,
+} from "@/components/storage/hooks/use-store-grid";
+import StoreItem from "../item/StoreItem";
 
 interface StoreGridProps {
   items: StoreItemData[];
 }
 
 export function StoreGrid({ items }: StoreGridProps) {
-  // Ensure all items have the required fields
-  const processedItems = items.map((item) => ({
-    ...item,
-    description: item.description || "",
-    rating: item.rating || 0,
-    id: item.id || `item-${item.name.toLowerCase().replace(/\s+/g, "-")}`,
-  }));
+  const { processedItems } = useStoreGrid(items);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">

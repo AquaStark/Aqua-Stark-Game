@@ -1,4 +1,6 @@
-import { useCartStore } from "@/components/storage/hooks/use-cart-store";
+"use client";
+
+import { useBundleItem } from "@/components/storage/hooks/use-bundle-item";
 import { motion } from "framer-motion";
 
 interface BundleItemProps {
@@ -24,19 +26,13 @@ export default function BundleItem({
   rarity,
   items,
 }: BundleItemProps) {
-  const { addItem, addToRecentlyViewed } = useCartStore();
-
-  const handleAddToCart = () => {
-    const item = {
-      id,
-      name,
-      image,
-      price,
-      rarity,
-    };
-    addItem(item);
-    addToRecentlyViewed(item);
-  };
+  const { handleAddToCart } = useBundleItem({
+    id,
+    name,
+    image,
+    price,
+    rarity,
+  });
 
   return (
     <motion.div

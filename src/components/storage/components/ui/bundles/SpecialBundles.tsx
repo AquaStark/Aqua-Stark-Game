@@ -1,30 +1,17 @@
+"use client";
+
 import { Package } from "lucide-react";
 import { motion } from "framer-motion";
-import { DecorationBundle } from "@/components/storage/data/mock-store";
-import {
-  CartItem,
-  useCartStore,
-} from "@/components/storage/hooks/use-cart-store";
+import type { DecorationBundle } from "@/components/storage/data/mock-store";
 import { StoreBundle } from "./StoreBundles";
+import { useSpecialBundles } from "@/components/storage/hooks/use-special-bundles";
 
 interface SpecialBundlesProps {
   bundles: DecorationBundle[];
 }
 
 export function SpecialBundles({ bundles }: SpecialBundlesProps) {
-  const { addItem, addToRecentlyViewed } = useCartStore();
-
-  const handleBuyBundle = (bundle: DecorationBundle) => {
-    const { id, name, image, price } = bundle;
-
-    // Create item object for cart
-    const item: CartItem = { id, name, image, price, quantity: 1 };
-
-    setTimeout(() => {
-      addItem(item);
-      addToRecentlyViewed(item);
-    }, 300);
-  };
+  const { handleBuyBundle } = useSpecialBundles();
 
   return (
     <motion.div

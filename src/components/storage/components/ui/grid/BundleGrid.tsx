@@ -1,24 +1,21 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { Package } from "lucide-react";
 import BundleItem from "../item/BundleItem";
+import {
+  Bundle,
+  useBundleGrid,
+} from "@/components/storage/hooks/use-bundle-grid";
 
 interface BundleGridProps {
-  bundles: Array<{
-    id: string;
-    name: string;
-    image: string;
-    price: number;
-    originalPrice: number;
-    discount: string;
-    tag: string;
-    rarity: string;
-    items: string[];
-    description: string;
-  }>;
+  bundles: Bundle[];
 }
 
 export function BundleGrid({ bundles }: BundleGridProps) {
-  if (bundles.length === 0) {
+  const { isEmpty } = useBundleGrid(bundles);
+
+  if (isEmpty) {
     return (
       <div className="text-center py-8 text-blue-200">
         No bundles available at this time.

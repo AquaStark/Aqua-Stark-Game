@@ -1,16 +1,11 @@
+"use client";
+
+import {
+  SortState,
+  useSortDropdown,
+} from "@/components/storage/hooks/use-sort-dropdown";
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
-
-interface SortOption {
-  label: string;
-  field: string;
-  direction: string;
-}
-
-interface SortState {
-  field: string;
-  direction: string;
-}
 
 interface SortDropdownProps {
   sort: SortState;
@@ -19,21 +14,11 @@ interface SortDropdownProps {
 }
 
 export function SortDropdown({ sort, updateSort, onClose }: SortDropdownProps) {
-  const sortOptions: SortOption[] = [
-    { label: "Price: Low to High", field: "price", direction: "asc" },
-    { label: "Price: High to Low", field: "price", direction: "desc" },
-    { label: "Popularity", field: "popularity", direction: "desc" },
-    { label: "Newest", field: "newest", direction: "desc" },
-  ];
-
-  const handleSort = (field: string, direction: string) => {
-    updateSort(field, direction);
-    onClose();
-  };
-
-  const isActive = (option: SortOption) => {
-    return sort.field === option.field && sort.direction === option.direction;
-  };
+  const { sortOptions, isActive, handleSort } = useSortDropdown(
+    sort,
+    updateSort,
+    onClose
+  );
 
   return (
     <motion.div

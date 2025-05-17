@@ -1,20 +1,22 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { Loader2, CheckCircle, ArrowRight, Coins } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useCartStore } from "@/components/storage/hooks/use-cart-store";
+import { useCheckoutModal } from "@/components/storage/hooks/use-checkout-modal";
 
 export function CheckoutModal() {
-  const { checkoutStep, setCheckoutStep, processCheckout, items } =
-    useCartStore();
+  const {
+    checkoutStep,
+    items,
+    serviceFee,
+    total,
+    isVisible,
+    handleBackToCart,
+    handleConfirmPurchase,
+  } = useCheckoutModal();
 
-  const subtotal = items.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-  const serviceFee = subtotal * 0.01; // 1% service fee
-  const total = subtotal + serviceFee;
-
-  if (checkoutStep === "cart") return null;
+  if (!isVisible) return null;
 
   return (
     <motion.div
@@ -70,7 +72,7 @@ export function CheckoutModal() {
             </div>
             <Button
               className="w-full bg-orange-500 hover:bg-orange-600 text-white h-12"
-              onClick={processCheckout}
+              onClick={handleConfirmPurchase}
             >
               Confirm Purchase
               <ArrowRight className="ml-2" size={18} />
@@ -78,7 +80,7 @@ export function CheckoutModal() {
             <Button
               variant="ghost"
               className="w-full text-white/70 hover:text-black"
-              onClick={() => setCheckoutStep("cart")}
+              onClick={handleBackToCart}
             >
               Back to Cart
             </Button>

@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Coins, Heart, Plus, Star, Check } from "lucide-react";
 import { FishTank } from "@/components/fish-tank";
-import { useCartStore } from "@/components/storage/hooks/use-cart-store";
+import { useStoreItem } from "@/components/storage/hooks/use-store-item";
 
 interface StoreItemProps {
   id?: string;
@@ -36,59 +35,31 @@ export default function StoreItem({
   isLimited = false,
   onAddToWishlist,
 }: StoreItemProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isInCart, setIsInCart] = useState(false);
-  const [isAddingToCart, setIsAddingToCart] = useState(false);
-  const { addItem, addToRecentlyViewed } = useCartStore();
-
-  const getRarityColor = () => {
-    switch (rarity.toLowerCase()) {
-      case "common":
-        return "bg-gray-500";
-      case "rare":
-        return "bg-blue-500";
-      case "legendary":
-        return "bg-purple-500";
-      case "special":
-        return "bg-orange-500";
-      default:
-        return "bg-gray-500";
-    }
-  };
-
-  const hasDiscount = originalPrice && originalPrice > price;
-  const discountPercentage = hasDiscount
-    ? Math.round(((originalPrice - price) / originalPrice) * 100)
-    : 0;
-
-  const handleFavoriteClick = () => {
-    const newFavoriteState = !isFavorite;
-    setIsFavorite(newFavoriteState);
-
-    if (onAddToWishlist) {
-      onAddToWishlist(name, newFavoriteState);
-    }
-  };
-
-  const handleAddToCart = () => {
-    setIsAddingToCart(true);
-
-    // Create item object for cart
-    const item = { id, name, image, price, rarity, description };
-
-    setTimeout(() => {
-      setIsInCart(true);
-      setIsAddingToCart(false);
-
-      // Add to cart using useCartStore
-      addItem(item);
-      addToRecentlyViewed(item);
-
-      setTimeout(() => {
-        setIsInCart(false);
-      }, 2000);
-    }, 300);
-  };
+  const {
+    isFavorite,
+    isInCart,
+    isAddingToCart,
+    getRarityColor,
+    hasDiscount,
+    discountPercentage,
+    handleFavoriteClick,
+    handleAddToCart,
+  } = useStoreItem(
+    {
+      id,
+      name,
+      image,
+      price,
+      rarity,
+      description,
+      rating,
+      originalPrice,
+      isNew,
+      stock,
+      isLimited,
+    },
+    onAddToWishlist
+  );
 
   const renderStars = () => {
     const stars = [];
