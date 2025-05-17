@@ -1,6 +1,6 @@
 import type { FishType } from "@/@types/Game";
 import { Fish } from "@/components/aquarium/components/ui/fish/Fish";
-import { useFishDisplay } from "@/components/aquarium/hooks/fish/FishDisplay.hook";
+import { useFishDisplay } from "@/components/aquarium/hooks/fish/use-fish-display";
 
 interface FishDisplayProps {
   fish: FishType[];

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { FishType } from "@/@types/Game";
-import { useFishMovement } from "@/components/aquarium/hooks/fish/FishMovement.hook";
+import { useFishMovement } from "@/components/aquarium/hooks/fish/use-fish-movement";
 
 // Sample fish data for generating additional fish
 const sampleFishData: Partial<FishType>[] = [

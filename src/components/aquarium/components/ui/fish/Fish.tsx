@@ -1,7 +1,7 @@
 "use client";
 
 import type { FishType } from "@/@types/Game";
-import { useFish } from "@/components/aquarium/hooks/fish/FishItem.hook";
+import { useFish } from "@/components/aquarium/hooks/fish/use-fish-item";
 import { motion } from "framer-motion";
 
 interface FishProps {

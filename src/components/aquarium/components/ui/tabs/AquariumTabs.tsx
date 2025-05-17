@@ -4,7 +4,7 @@ import type React from "react";
 
 import { Grid } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useAquariumTabs } from "@/components/aquarium/hooks/AquariumTabs.hook";
+import { useAquariumTabs } from "@/components/aquarium/hooks/use-aquarium-tabs";
 
 interface AquariumTabProps {
   name: string;

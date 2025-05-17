@@ -7,8 +7,8 @@ import { AquariumTabs } from "../../../../aquarium/components/ui/tabs/AquariumTa
 import { TipsPopup } from "../tips/TipsPopup";
 import { FishDisplay } from "../../../../aquarium/components/ui/display/FishDisplay";
 import { INITIAL_GAME_STATE, MOCK_FISH } from "../../../data/Game.data";
-import { useAquarium } from "../../../../aquarium/hooks/Aquarium.hook";
-import { useFishStats } from "../../../../aquarium/hooks/fish/FishStats.hook";
+import { useAquarium } from "../../../../aquarium/hooks/use-aquarium";
+import { useFishStats } from "../../../../aquarium/hooks/fish/use-fish-stats";
 import { GameMenu } from "../menu/GameMenu";
 import { useBubbles } from "@/hooks/use-bubbles";
 import { BubblesBackground } from "../../../../effects/bubbles-background";
