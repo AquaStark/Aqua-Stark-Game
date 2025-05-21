@@ -3,12 +3,15 @@
 import { ArrowLeft, Coins } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useProfileHeader } from "@/components/profile/hooks/use-profile-header";
 
 interface ProfileHeaderProps {
   currency: number;
 }
 
 export function ProfileHeader({ currency }: ProfileHeaderProps) {
+  const { formattedCurrency } = useProfileHeader({ currency });
+
   return (
     <header
       className="flex items-center justify-between mb-6 animate-fadeDown"
@@ -29,7 +32,7 @@ export function ProfileHeader({ currency }: ProfileHeaderProps) {
 
       <div className="flex items-center">
         <Coins className="w-5 h-5 mr-2 text-yellow-400 animate-pulse-slow" />
-        <span className="font-bold">{currency.toLocaleString()}</span>
+        <span className="font-bold">{formattedCurrency}</span>
       </div>
     </header>
   );

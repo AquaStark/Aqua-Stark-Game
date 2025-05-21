@@ -1,3 +1,6 @@
+"use client";
+
+import { useAchievements } from "@/components/profile/hooks/use-achievements";
 import { Trophy, Fish, Check, Lock } from "lucide-react";
 
 interface AchievementsProps {
@@ -10,6 +13,8 @@ interface AchievementsProps {
 }
 
 export function Achievements({ stats }: AchievementsProps) {
+  const { completionPercentage, completionText } = useAchievements(stats);
+
   return (
     <div className="mb-6">
       <div className="flex justify-between items-center mb-2">
@@ -17,17 +22,13 @@ export function Achievements({ stats }: AchievementsProps) {
           <Trophy className="w-5 h-5 mr-2 text-yellow-400 animate-pulse-slow" />
           Achievements
         </h2>
-        <span className="text-sm">
-          {stats.achievements.completed} of {stats.achievements.total} completed
-        </span>
+        <span className="text-sm">{completionText}</span>
       </div>
       <div className="h-2 bg-blue-900 rounded-full overflow-hidden mb-6">
         <div
           className="h-full bg-gradient-to-r from-yellow-400 to-yellow-300 animate-expandWidth"
           style={{
-            width: `${
-              (stats.achievements.completed / stats.achievements.total) * 100
-            }%`,
+            width: `${completionPercentage}%`,
           }}
         />
       </div>

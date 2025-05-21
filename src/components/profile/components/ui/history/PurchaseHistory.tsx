@@ -1,3 +1,6 @@
+"use client";
+
+import { usePurchaseHistory } from "@/components/profile/hooks/use-purchase-history";
 import {
   ShoppingBag,
   Calendar,
@@ -11,6 +14,26 @@ import {
 } from "lucide-react";
 
 export function PurchaseHistory() {
+  const { transactions, getAmountDisplayClass } = usePurchaseHistory();
+
+  // Helper function to get the icon based on transaction category
+  const getTransactionIcon = (category: string) => {
+    switch (category) {
+      case "premium":
+        return <Gem className="w-6 h-6 text-blue-300" />;
+      case "food":
+        return <Utensils className="w-6 h-6 text-blue-300" />;
+      case "equipment":
+        return <FlaskConical className="w-6 h-6 text-blue-300" />;
+      case "refund":
+        return <RefreshCw className="w-6 h-6 text-yellow-400" />;
+      case "egg":
+        return <Egg className="w-6 h-6 text-blue-300" />;
+      default:
+        return <ShoppingBag className="w-6 h-6 text-blue-300" />;
+    }
+  };
+
   return (
     <div className="mb-6">
       <div className="flex justify-between items-center mb-6">
@@ -22,112 +45,41 @@ export function PurchaseHistory() {
 
       {/* Purchase History */}
       <div className="bg-blue-800 rounded-xl overflow-hidden shadow-lg">
-        {/* Transaction 1 */}
-        <div
-          className="p-4 flex items-center border-b border-blue-700 hover:bg-blue-700/50 transition-colors animate-fadeIn"
-          style={{ animationDelay: "0.1s" }}
-        >
-          <div className="w-12 h-12 rounded-lg bg-blue-700 flex items-center justify-center mr-4">
-            <Gem className="w-6 h-6 text-blue-300" />
-          </div>
-          <div className="flex-1">
-            <h4 className="font-medium">Premium Aquarium Bundle</h4>
-            <div className="flex items-center text-xs text-blue-300">
-              <Calendar className="w-3 h-3 mr-1" />
-              Apr 2, 2025
+        {transactions.map((transaction, index) => (
+          <div
+            key={transaction.id}
+            className={`p-4 flex items-center hover:bg-blue-700/50 transition-colors animate-fadeIn ${
+              index < transactions.length - 1 ? "border-b border-blue-700" : ""
+            }`}
+            style={{ animationDelay: `${0.1 * (index + 1)}s` }}
+          >
+            <div className="w-12 h-12 rounded-lg bg-blue-700 flex items-center justify-center mr-4">
+              {getTransactionIcon(transaction.category)}
+            </div>
+            <div className="flex-1">
+              <h4 className="font-medium">{transaction.title}</h4>
+              <div className="flex items-center text-xs text-blue-300">
+                <Calendar className="w-3 h-3 mr-1" />
+                {transaction.date}
+              </div>
+            </div>
+            <div className="flex items-center">
+              <Coins
+                className={`w-4 h-4 mr-1 ${
+                  transaction.amount > 0 ? "text-green-400" : "text-yellow-400"
+                }`}
+              />
+              <span
+                className={`font-bold ${getAmountDisplayClass(
+                  transaction.amount
+                )} ${transaction.amount > 0 ? "animate-pulse-slow" : ""}`}
+              >
+                {transaction.amount > 0 ? "+" : ""}
+                {transaction.amount.toLocaleString()}
+              </span>
             </div>
           </div>
-          <div className="flex items-center">
-            <Coins className="w-4 h-4 mr-1 text-yellow-400" />
-            <span className="font-bold">-2,500</span>
-          </div>
-        </div>
-
-        {/* Transaction 2 */}
-        <div
-          className="p-4 flex items-center border-b border-blue-700 hover:bg-blue-700/50 transition-colors animate-fadeIn"
-          style={{ animationDelay: "0.2s" }}
-        >
-          <div className="w-12 h-12 rounded-lg bg-blue-700 flex items-center justify-center mr-4">
-            <Utensils className="w-6 h-6 text-blue-300" />
-          </div>
-          <div className="flex-1">
-            <h4 className="font-medium">Rare Fish Food Pack</h4>
-            <div className="flex items-center text-xs text-blue-300">
-              <Calendar className="w-3 h-3 mr-1" />
-              Mar 28, 2025
-            </div>
-          </div>
-          <div className="flex items-center">
-            <Coins className="w-4 h-4 mr-1 text-yellow-400" />
-            <span className="font-bold">-750</span>
-          </div>
-        </div>
-
-        {/* Transaction 3 */}
-        <div
-          className="p-4 flex items-center border-b border-blue-700 hover:bg-blue-700/50 transition-colors animate-fadeIn"
-          style={{ animationDelay: "0.3s" }}
-        >
-          <div className="w-12 h-12 rounded-lg bg-blue-700 flex items-center justify-center mr-4">
-            <FlaskConical className="w-6 h-6 text-blue-300" />
-          </div>
-          <div className="flex-1">
-            <h4 className="font-medium">Celestial Breeding Tank</h4>
-            <div className="flex items-center text-xs text-blue-300">
-              <Calendar className="w-3 h-3 mr-1" />
-              Mar 15, 2025
-            </div>
-          </div>
-          <div className="flex items-center">
-            <Coins className="w-4 h-4 mr-1 text-yellow-400" />
-            <span className="font-bold">-1,200</span>
-          </div>
-        </div>
-
-        {/* Transaction 4 */}
-        <div
-          className="p-4 flex items-center border-b border-blue-700 hover:bg-blue-700/50 transition-colors animate-fadeIn"
-          style={{ animationDelay: "0.4s" }}
-        >
-          <div className="w-12 h-12 rounded-lg bg-blue-700 flex items-center justify-center mr-4">
-            <RefreshCw className="w-6 h-6 text-yellow-400" />
-          </div>
-          <div className="flex-1">
-            <h4 className="font-medium">Coin Package Refund</h4>
-            <div className="flex items-center text-xs text-blue-300">
-              <Calendar className="w-3 h-3 mr-1" />
-              Mar 10, 2025
-            </div>
-          </div>
-          <div className="flex items-center">
-            <Coins className="w-4 h-4 mr-1 text-green-400" />
-            <span className="font-bold text-green-400 animate-pulse-slow">
-              +500
-            </span>
-          </div>
-        </div>
-
-        {/* Transaction 5 */}
-        <div
-          className="p-4 flex items-center hover:bg-blue-700/50 transition-colors animate-fadeIn"
-          style={{ animationDelay: "0.5s" }}
-        >
-          <div className="w-12 h-12 rounded-lg bg-blue-700 flex items-center justify-center mr-4">
-            <Egg className="w-6 h-6 text-blue-300" />
-          </div>
-          <div className="flex-1">
-            <h4 className="font-medium">Exotic Fish Egg</h4>
-            <div className="flex items-center text-xs text-blue-300">
-              <Calendar className="w-3 h-3 mr-1" />
-              Mar 5, 2025
-            </div>
-          </div>
-          <div className="flex items-center">
-            <Coins className="w-4 h-4 mr-1 text-yellow-400" />
-            <span className="font-bold">-1,800</span>
-          </div>
-        </div>
+        ))}
       </div>
 
       <div

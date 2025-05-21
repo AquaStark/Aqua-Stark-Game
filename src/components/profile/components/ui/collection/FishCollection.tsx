@@ -1,3 +1,6 @@
+"use client";
+
+import { useFishCollection } from "@/components/profile/hooks/use-fish-collection";
 import { ChevronRight, Star } from "lucide-react";
 
 interface Fish {
@@ -18,28 +21,29 @@ interface FishCollectionProps {
 }
 
 export function FishCollection({ fishCollection }: FishCollectionProps) {
+  const { collectionPercentage, collectionText, processedFish } =
+    useFishCollection({
+      fishCollection,
+    });
+
   return (
     <div className="mb-6">
       <div className="flex justify-between items-center mb-2">
         <h2 className="text-xl font-bold">Fish Collection</h2>
-        <span className="text-sm">
-          {fishCollection.collected} of {fishCollection.total} collected
-        </span>
+        <span className="text-sm">{collectionText}</span>
       </div>
       <div className="h-2 bg-blue-900 rounded-full overflow-hidden mb-4">
         <div
           className="h-full bg-gradient-to-r from-green-400 to-green-300 animate-expandWidth"
           style={{
-            width: `${
-              (fishCollection.collected / fishCollection.total) * 100
-            }%`,
+            width: `${collectionPercentage}%`,
           }}
         />
       </div>
 
       {/* Fish Grid */}
       <div className="grid grid-cols-4 gap-4 mb-4">
-        {fishCollection.displayedFish.map((fish, index) => (
+        {processedFish.map((fish, index) => (
           <div
             key={fish.id}
             className="bg-blue-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fadeIn"
@@ -47,20 +51,12 @@ export function FishCollection({ fishCollection }: FishCollectionProps) {
           >
             <div className="p-4 flex justify-center items-center h-24 relative">
               <div
-                className={`absolute top-2 right-2 text-xs px-2 py-0.5 rounded-full ${
-                  fish.rarity === "Legendary"
-                    ? "bg-purple-500"
-                    : fish.rarity === "Rare"
-                    ? "bg-blue-500"
-                    : fish.rarity === "Special"
-                    ? "bg-yellow-500"
-                    : "bg-green-500"
-                }`}
+                className={`absolute top-2 right-2 text-xs px-2 py-0.5 rounded-full ${fish.rarityColorClass}`}
               >
                 {fish.rarity}
               </div>
               <img
-                src={fish.imageUrl}
+                src={fish.imageUrl || "/placeholder.svg"}
                 alt={fish.name}
                 width={80}
                 height={80}

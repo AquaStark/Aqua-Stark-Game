@@ -1,3 +1,6 @@
+"use client";
+
+import { useProfileCard } from "@/components/profile/hooks/use-profile-card";
 import { Clock, Fish, Star, Medal } from "lucide-react";
 
 interface ProfileCardProps {
@@ -27,6 +30,30 @@ export function ProfileCard({
   experience,
   stats,
 }: ProfileCardProps) {
+  const { experiencePercentage, experienceText, statItems } = useProfileCard({
+    username,
+    level,
+    joinDate,
+    experience,
+    stats,
+  });
+
+  // Map stat types to their respective icons
+  const getStatIcon = (type: string) => {
+    switch (type) {
+      case "playTime":
+        return <Clock className="w-5 h-5 text-blue-300" />;
+      case "fishCollected":
+        return <Fish className="w-5 h-5 text-blue-300" />;
+      case "specialFish":
+        return <Star className="w-5 h-5 text-blue-300" />;
+      case "achievements":
+        return <Medal className="w-5 h-5 text-blue-300" />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div
       className="bg-blue-800 rounded-xl p-6 mb-6 shadow-lg animate-fadeIn"
@@ -55,15 +82,13 @@ export function ProfileCard({
           <div className="mb-4">
             <div className="flex justify-between text-sm mb-1">
               <span>Experience</span>
-              <span>
-                {experience.current} / {experience.total} XP
-              </span>
+              <span>{experienceText}</span>
             </div>
             <div className="h-2 bg-blue-900 rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-blue-400 to-blue-300 animate-expandWidth"
                 style={{
-                  width: `${(experience.current / experience.total) * 100}%`,
+                  width: `${experiencePercentage}%`,
                 }}
               />
             </div>
@@ -71,38 +96,15 @@ export function ProfileCard({
 
           {/* Stats */}
           <div className="grid grid-cols-4 gap-4">
-            {[
-              {
-                icon: <Clock className="w-5 h-5 text-blue-300" />,
-                label: "Play Time",
-                value: stats.playTime,
-                delay: 0.3,
-              },
-              {
-                icon: <Fish className="w-5 h-5 text-blue-300" />,
-                label: "Fish Collected",
-                value: `${stats.fishCollected}/${stats.totalFish}`,
-                delay: 0.4,
-              },
-              {
-                icon: <Star className="w-5 h-5 text-blue-300" />,
-                label: "Special Fish",
-                value: stats.specialFish,
-                delay: 0.5,
-              },
-              {
-                icon: <Medal className="w-5 h-5 text-blue-300" />,
-                label: "Achievements",
-                value: `${stats.achievements.completed}/${stats.achievements.total}`,
-                delay: 0.6,
-              },
-            ].map((stat, index) => (
+            {statItems.map((stat, index) => (
               <div
                 key={index}
                 className="text-center animate-fadeIn"
                 style={{ animationDelay: `${stat.delay}s` }}
               >
-                <div className="flex justify-center mb-1">{stat.icon}</div>
+                <div className="flex justify-center mb-1">
+                  {getStatIcon(stat.type)}
+                </div>
                 <div className="text-sm text-blue-200">{stat.label}</div>
                 <div className="font-bold">{stat.value}</div>
               </div>

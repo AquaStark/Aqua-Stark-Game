@@ -1,3 +1,6 @@
+"use client";
+
+import { useProfileTabs } from "@/components/profile/hooks/use-profile-tabs";
 import { Fish, Trophy, ShoppingBag } from "lucide-react";
 
 interface ProfileTabsProps {
@@ -6,62 +9,44 @@ interface ProfileTabsProps {
 }
 
 export function ProfileTabs({ activeTab, setActiveTab }: ProfileTabsProps) {
+  const { tabs, handleTabClick, getTabClass, getIconClass } = useProfileTabs({
+    activeTab,
+    setActiveTab,
+  });
+
+  // Helper function to get the icon based on icon type
+  const getTabIcon = (iconType: string, tabId: string) => {
+    const iconClass = getIconClass(tabId);
+
+    switch (iconType) {
+      case "trophy":
+        return <Trophy className={iconClass} />;
+      case "fish":
+        return <Fish className={iconClass} />;
+      case "shoppingBag":
+        return <ShoppingBag className={iconClass} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div
       className="grid grid-cols-3 gap-2 mb-6 animate-fadeIn"
       style={{ animationDelay: "0.4s" }}
     >
-      <button
-        className={`py-3 px-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 ${
-          activeTab === "achievements"
-            ? "bg-blue-600 shadow-md"
-            : "bg-blue-800 hover:bg-blue-700"
-        }`}
-        onClick={() => setActiveTab("achievements")}
-      >
-        <div className="flex items-center justify-center">
-          <Trophy
-            className={`w-4 h-4 mr-2 transition-transform duration-300 ${
-              activeTab === "achievements" ? "scale-110" : ""
-            }`}
-          />
-          Achievements
-        </div>
-      </button>
-      <button
-        className={`py-3 px-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 ${
-          activeTab === "collection"
-            ? "bg-blue-600 shadow-md"
-            : "bg-blue-800 hover:bg-blue-700"
-        }`}
-        onClick={() => setActiveTab("collection")}
-      >
-        <div className="flex items-center justify-center">
-          <Fish
-            className={`w-4 h-4 mr-2 transition-transform duration-300 ${
-              activeTab === "collection" ? "scale-110" : ""
-            }`}
-          />
-          Collection
-        </div>
-      </button>
-      <button
-        className={`py-3 px-4 rounded-lg text-center transition-all duration-300 transform hover:scale-105 ${
-          activeTab === "purchase"
-            ? "bg-blue-600 shadow-md"
-            : "bg-blue-800 hover:bg-blue-700"
-        }`}
-        onClick={() => setActiveTab("purchase")}
-      >
-        <div className="flex items-center justify-center">
-          <ShoppingBag
-            className={`w-4 h-4 mr-2 transition-transform duration-300 ${
-              activeTab === "purchase" ? "scale-110" : ""
-            }`}
-          />
-          Purchase History
-        </div>
-      </button>
+      {tabs.map((tab) => (
+        <button
+          key={tab.id}
+          className={getTabClass(tab.id)}
+          onClick={() => handleTabClick(tab.id)}
+        >
+          <div className="flex items-center justify-center">
+            {getTabIcon(tab.iconType, tab.id)}
+            {tab.label}
+          </div>
+        </button>
+      ))}
     </div>
   );
 }

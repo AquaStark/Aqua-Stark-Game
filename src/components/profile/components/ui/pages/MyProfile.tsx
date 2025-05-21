@@ -1,8 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useBubbles } from "@/hooks/use-bubbles";
-import mockProfileData from "@/components/profile/data/mock-my-profile";
 import { BubblesBackground } from "@/components/effects/bubbles-background";
 import { ProfileHeader } from "../../layouts/header/ProfileHeader";
 import { ProfileCard } from "../cards/ProfileCard";
@@ -11,24 +8,17 @@ import { FishCollection } from "../collection/FishCollection";
 import { Achievements } from "../achievements/ProfileAchievements";
 import { PurchaseHistory } from "../history/PurchaseHistory";
 import { PlayerStatistics } from "../statistics/PlayerStatistics";
+import { useMyProfile } from "@/components/profile/hooks/use-my-profile";
 
 export default function MyProfile() {
-  const [activeTab, setActiveTab] = useState("collection");
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
-
-  const bubbles = useBubbles({
-    initialCount: 15,
-    maxBubbles: 25,
-    minSize: 6,
-    maxSize: 30,
-    minDuration: 8,
-    maxDuration: 25,
-    interval: 500,
-  });
+  const {
+    activeTab,
+    setActiveTab,
+    isLoaded,
+    bubbles,
+    profileData,
+    isTabActive,
+  } = useMyProfile();
 
   const {
     username,
@@ -39,7 +29,7 @@ export default function MyProfile() {
     stats,
     fishCollection,
     playerStats,
-  } = mockProfileData;
+  } = profileData;
 
   return (
     <div className="min-h-screen bg-blue-700 text-white relative overflow-hidden">
@@ -68,11 +58,11 @@ export default function MyProfile() {
         <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
         <div className="animate-fadeIn transition-all duration-500">
-          {activeTab === "collection" && (
+          {isTabActive("collection") && (
             <FishCollection fishCollection={fishCollection} />
           )}
-          {activeTab === "achievements" && <Achievements stats={stats} />}
-          {activeTab === "purchase" && <PurchaseHistory />}
+          {isTabActive("achievements") && <Achievements stats={stats} />}
+          {isTabActive("purchase") && <PurchaseHistory />}
           <PlayerStatistics playerStats={playerStats} />
         </div>
       </div>

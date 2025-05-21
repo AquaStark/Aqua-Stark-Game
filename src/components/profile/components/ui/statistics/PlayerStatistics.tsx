@@ -1,9 +1,12 @@
+"use client";
+
+import { usePlayerStatistics } from "@/components/profile/hooks/use-player-statistics";
 import {
   BarChart2,
   Fish,
   Sparkles,
   Stethoscope,
-  ChartColumnBig,
+  BarChartBigIcon as ChartColumnBig,
 } from "lucide-react";
 
 interface PlayerStatisticsProps {
@@ -16,6 +19,24 @@ interface PlayerStatisticsProps {
 }
 
 export function PlayerStatistics({ playerStats }: PlayerStatisticsProps) {
+  const { formattedStats } = usePlayerStatistics(playerStats);
+
+  // Helper function to get the icon based on stat key
+  const getStatIcon = (key: string) => {
+    switch (key) {
+      case "fishFed":
+        return <Fish className="w-4 h-4 text-blue-300" />;
+      case "decorationsPlaced":
+        return <Sparkles className="w-4 h-4 text-purple-300" />;
+      case "fishBred":
+        return <Stethoscope className="w-4 h-4 text-red-300" />;
+      case "aquariumsCreated":
+        return <ChartColumnBig className="w-4 h-4 text-yellow-300" />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="animate-fadeIn" style={{ animationDelay: "0.5s" }}>
       <h2 className="text-xl font-bold mb-4 flex items-center">
@@ -24,36 +45,7 @@ export function PlayerStatistics({ playerStats }: PlayerStatisticsProps) {
       </h2>
 
       <div className="grid grid-cols-4 gap-4">
-        {[
-          {
-            icon: <Fish className="w-4 h-4 text-blue-300" />,
-            label: "Fish Fed",
-            value: playerStats.fishFed.toLocaleString(),
-            color: "bg-blue-700",
-            delay: 0.6,
-          },
-          {
-            icon: <Sparkles className="w-4 h-4 text-purple-300" />,
-            label: "Decorations Placed",
-            value: playerStats.decorationsPlaced,
-            color: "bg-purple-700",
-            delay: 0.7,
-          },
-          {
-            icon: <Stethoscope className="w-4 h-4 text-red-300" />,
-            label: "Fish Bred",
-            value: playerStats.fishBred,
-            color: "bg-red-700",
-            delay: 0.8,
-          },
-          {
-            icon: <ChartColumnBig className="w-4 h-4 text-yellow-300" />,
-            label: "Aquariums Created",
-            value: playerStats.aquariumsCreated,
-            color: "bg-yellow-700",
-            delay: 0.9,
-          },
-        ].map((stat, index) => (
+        {formattedStats.map((stat, index) => (
           <div
             key={index}
             className="bg-blue-800 rounded-lg p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fadeIn"
@@ -63,7 +55,7 @@ export function PlayerStatistics({ playerStats }: PlayerStatisticsProps) {
               <div
                 className={`w-8 h-8 rounded-full ${stat.color} flex items-center justify-center animate-pulse-slow`}
               >
-                {stat.icon}
+                {getStatIcon(stat.key)}
               </div>
             </div>
             <div className="text-center text-sm text-blue-300">
