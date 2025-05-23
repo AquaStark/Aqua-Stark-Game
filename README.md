@@ -20,15 +20,22 @@
 /Aqua-Stark-Game
 ├── .github/ISSUE_TEMPLATE       # GitHub issue templates
 ├── public                       # Static assets served at root (e.g. /favicon.ico)
-├── src/app                      # Main app source code (Next.js App Router)
+├── src
+│   ├── app                      # Main app source code (Next.js App Router)
+│   ├── components               # Reusable UI components
+│   ├── hooks                    # Custom React hooks
+│   ├── types                    # TypeScript types and interfaces
+│   ├── lib                      # Utilities, helpers, and config logic
+│   ├── data                     # Static or mock data used in the app
 ├── .gitignore                   # Specifies ignored files/folders in Git
-├── README.md                    # This file
+├── README.md                    # Project documentation
 ├── eslint.config.mjs            # ESLint config for code linting
 ├── next.config.ts               # Next.js configuration file
-├── package-lock.json            # Dependency lock file for reproducible installs
-├── package.json                 # Project metadata, scripts, and dependencies
-├── postcss.config.mjs           # PostCSS config, usually for Tailwind
+├── package-lock.json            # Dependency lock file
+├── package.json                 # Project metadata and scripts
+├── postcss.config.mjs           # Tailwind/PostCSS configuration
 ├── tsconfig.json                # TypeScript compiler configuration
+
 
 ```
 ## 🌍 Connecting to StarkNet  
