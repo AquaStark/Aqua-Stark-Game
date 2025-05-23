@@ -1,12 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Search, Filter, SlidersHorizontal, Clock, Coins } from "lucide-react";
 
 import { useStoreFilters } from "@/hooks/store/use-store-filters";
 import { useCartStore } from "@/hooks/store/use-cart-store";
+
 import { getTabItems, filterItems, sortItems, getTabTitle } from "@/lib/store-utils";
+
+import { bundles, decorationBundles } from "@/data/mock-data-store";
+
 import { StoreTabs } from "@/components/store/store-tabs";
 import { StoreCarousel } from "@/components/store/store-carousel";
 import { StoreCategories } from "@/components/store/store-categories";
@@ -16,8 +21,8 @@ import { SpecialBundles } from "@/components/store/special-bundles";
 import { PaginationControls } from "@/components/store/pagination-controls";
 import { FilterPanel } from "@/components/store/filter-panel";
 import { SortDropdown } from "@/components/store/sort-dropdown";
-import { bundles, decorationBundles } from "@/data/mock-data-store";
-import Image from "next/image";
+import { CartSidebar } from "@/components/store/cart-sidebar";
+
 
 export function StoreMain() {
   const [activeTab, setActiveTab] = useState("fish");
@@ -47,7 +52,7 @@ export function StoreMain() {
   const shouldShowSpecialBundles = activeTab === "decorations";
 
   return (
-    <div className="px-4 py-8 mx-auto max-w-7xl">
+    <div className="relative px-4 py-8 mx-auto max-w-7xl">
       <h1 className="mb-8 text-4xl font-bold text-center text-white drop-shadow-lg">
         Aqua Stark Store
       </h1>
@@ -84,14 +89,14 @@ export function StoreMain() {
                       className="flex flex-col p-2 border rounded-lg shadow-lg bg-blue-400/25 border-white/20"
                     >
                       <div className="flex items-center justify-center w-20 h-20 p-1 mx-auto overflow-hidden rounded-lg bg-blue-500/50">
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        width={80}
-                        height={80}
-                        className="mx-auto"
-                        unoptimized
-                      />
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          width={80}
+                          height={80}
+                          className="mx-auto"
+                          unoptimized
+                        />
                       </div>
                       <div>
                         <h4 className="mt-2 font-semibold text-center text-white">{item.name}</h4>
@@ -182,6 +187,9 @@ export function StoreMain() {
           <PaginationControls items={sortedItems} />
         </div>
       </div>
+
+      {/* ✅ CartSidebar agregado aquí, funcional */}
+      <CartSidebar />
     </div>
   );
 }
