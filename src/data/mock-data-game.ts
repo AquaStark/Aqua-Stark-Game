@@ -1,5 +1,6 @@
 import { FishType } from "@/types/game"
 
+export type ItemType = "fish" | "food" | "decorations" | "others";
 export interface GameState {
   happiness: number
   food: number
