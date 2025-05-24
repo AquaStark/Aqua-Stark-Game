@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDebounce } from "@/hooks/store/use-debounce";
-import { FilterState, PriceRange, SortState } from "@/types/store";
+import { FilterState, PriceRange, SortState, Category } from "@/types/store";
 
 export function useStoreFilters() {
   const [filters, setFilters] = useState<FilterState>({
@@ -25,7 +25,7 @@ export function useStoreFilters() {
     setSearchQuery,
     updatePriceRange: (range: PriceRange) =>
       setFilters((prev) => ({ ...prev, priceRange: range })),
-    updateCategories: (categories: string[]) =>
+    updateCategories: (categories: Category[]) =>
       setFilters((prev) => ({ ...prev, categories })),
     toggleOnSale: () =>
       setFilters((prev) => ({ ...prev, onSale: !prev.onSale })),
