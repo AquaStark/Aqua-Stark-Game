@@ -9,6 +9,7 @@ import {
 import { motion } from "framer-motion";
 import { purchaseHistory } from "@/data/mock-data-profile";
 import { getIconComponent } from "@/lib/profile-utils";
+import React from "react"; // Necesario para tipos
 
 export function PurchaseHistory() {
   return (
@@ -22,7 +23,7 @@ export function PurchaseHistory() {
 
       <div className="bg-blue-800 rounded-xl overflow-hidden shadow-lg">
         {purchaseHistory.map((tx, index) => {
-          const Icon = getIconComponent(tx.icon);
+          const Icon = getIconComponent(tx.icon) as React.ComponentType<{ className?: string }>;
 
           return (
             <motion.div
@@ -48,9 +49,7 @@ export function PurchaseHistory() {
                 />
                 <span
                   className={`font-bold ${
-                    tx.amount > 0
-                      ? "text-green-400 animate-pulse-slow"
-                      : ""
+                    tx.amount > 0 ? "text-green-400 animate-pulse-slow" : ""
                   }`}
                 >
                   {tx.amount > 0 ? `+${tx.amount}` : `-${Math.abs(tx.amount)}`}
