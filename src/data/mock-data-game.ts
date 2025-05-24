@@ -1,6 +1,7 @@
 import { FishType } from "@/types/game"
 
 export type ItemType = "fish" | "food" | "decorations" | "others";
+
 export interface GameState {
   happiness: number
   food: number
@@ -47,3 +48,31 @@ export const initialGameState: GameState = {
   food: 90,
   energy: 75,
 }
+
+export type Bundle = {
+  name: string;
+  image: string;
+  price: number;
+  originalPrice: number;
+  itemsDescription: string;
+  savingsPercentage: number;
+}
+
+export const mockBundles: Bundle[] = [
+  {
+    name: "Starter Pack",
+    image: "/bundles/starter.png",
+    price: 200,
+    originalPrice: 300,
+    itemsDescription: "Includes 3 fishes, 1 decoration, and 1 food pack",
+    savingsPercentage: 33,
+  },
+  {
+    name: "Tropical Boost",
+    image: "/bundles/tropical.png",
+    price: 500,
+    originalPrice: 800,
+    itemsDescription: "Includes 5 rare fishes and 3 decorations",
+    savingsPercentage: 38,
+  },
+]
