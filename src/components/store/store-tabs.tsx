@@ -1,5 +1,5 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ItemType } from "@/data/mock-data-game";
+import { ItemType } from "@/types/store";
 
 interface StoreTabsProps {
   activeTab: ItemType;
