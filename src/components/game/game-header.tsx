@@ -1,48 +1,144 @@
-import { Fish } from "lucide-react"
-import { GameStatusBar } from "./game-status-bar"
-import { GameButton } from "./game-button"
-import Image from "next/image"
+"use client";
+
+import { Fish, ChevronDown, ChevronUp } from "lucide-react";
+import { GameStatusBar } from "./game-status-bar";
+import { GameButton } from "./game-button";
+import Image from "next/image";
+import { useState } from "react";
 
 interface GameHeaderProps {
-  happiness: number
-  food: number
-  energy: number
-  onMenuToggle: () => void
+  happiness: number;
+  food: number;
+  energy: number;
+  onMenuToggle: () => void;
 }
 
-export function GameHeader({ happiness, food, energy, onMenuToggle }: GameHeaderProps) {
+export function GameHeader({
+  happiness,
+  food,
+  energy,
+  onMenuToggle,
+}: GameHeaderProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="absolute top-0 left-0 right-0 flex justify-between items-center p-4 z-20">
-      <div className="flex items-center gap-4">
-        <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Aqua_Stark-removebg-preview-ubKSrqYo7jzOH5qXqxEw4CyRHXIjfq.png"
-          alt="Aqua Stark Logo"
-          width={120}
-          height={50}
-          className="drop-shadow-lg"
-          priority
-        />
+    <div className="absolute top-0 left-0 right-0 z-20">
+      {/* Mobile Layout (< 1024px) - Collapsible */}
+      <div className="lg:hidden">
+        {/* Always visible top bar */}
+        <div className="flex justify-between items-center p-3 ">
+          <div className="flex items-center gap-3">
+            <Image
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Aqua_Stark-removebg-preview-ubKSrqYo7jzOH5qXqxEw4CyRHXIjfq.png"
+              alt="Aqua Stark Logo"
+              width={80}
+              height={33}
+              className="drop-shadow-lg"
+              priority
+            />
+            <div className="flex items-center gap-1 bg-blue-800/50 px-2 py-1 rounded-lg">
+              <Fish className="text-blue-200 h-4 w-4" />
+              <span className="text-white font-bold text-sm">2/10</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="bg-blue-600/80 hover:bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center transition-all duration-200"
+            >
+              {isExpanded ? (
+                <ChevronUp className="h-4 w-4" />
+              ) : (
+                <ChevronDown className="h-4 w-4" />
+              )}
+            </button>
+            <GameButton
+              icon="☰"
+              className="bg-blue-500 hover:bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center"
+              onClick={onMenuToggle}
+            />
+          </div>
+        </div>
+
+        {/* Expandable status section */}
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-in-out ${
+            isExpanded ? "max-h-20 opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="  px-3 pb-3">
+            <div className="flex items-center justify-center gap-2 bg-blue-800/30 p-2 rounded-lg">
+              <GameStatusBar
+                icon="🌟"
+                value={happiness}
+                color="from-yellow-400 to-yellow-600"
+                label="Happiness"
+              />
+              <GameStatusBar
+                icon="🍖"
+                value={food}
+                color="from-orange-400 to-orange-600"
+                label="Hunger"
+              />
+              <GameStatusBar
+                icon="⚡"
+                value={energy}
+                color="from-blue-400 to-blue-600"
+                label="Energy"
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="flex items-center gap-4 bg-blue-900/40 backdrop-blur-sm p-3 rounded-xl">
+      {/* Desktop Layout (>= 1024px) - Original Design */}
+      <div className="hidden lg:flex justify-between items-center p-4">
+        <div className="flex items-center gap-4">
+          <Image
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Aqua_Stark-removebg-preview-ubKSrqYo7jzOH5qXqxEw4CyRHXIjfq.png"
+            alt="Aqua Stark Logo"
+            width={120}
+            height={50}
+            className="drop-shadow-lg"
+            priority
+          />
+        </div>
+
+        <div className="flex items-center gap-4 bg-blue-900/40 backdrop-blur-sm p-3 rounded-xl">
           <div className="flex items-center gap-2 mr-4 bg-blue-800/50 px-3 py-1 rounded-lg">
             <Fish className="text-blue-200 h-5 w-5" />
             <span className="text-white font-bold">2/10</span>
           </div>
 
-          <GameStatusBar icon="🌟" value={happiness} color="from-yellow-400 to-yellow-600" label="Happiness" />
-          <GameStatusBar icon="🍖" value={food} color="from-orange-400 to-orange-600" label="Hunger" />
-          <GameStatusBar icon="⚡" value={energy} color="from-blue-400 to-blue-600" label="Energy" />
+          <GameStatusBar
+            icon="🌟"
+            value={happiness}
+            color="from-yellow-400 to-yellow-600"
+            label="Happiness"
+          />
+          <GameStatusBar
+            icon="🍖"
+            value={food}
+            color="from-orange-400 to-orange-600"
+            label="Hunger"
+          />
+          <GameStatusBar
+            icon="⚡"
+            value={energy}
+            color="from-blue-400 to-blue-600"
+            label="Energy"
+          />
         </div>
 
-      <div className="flex items-center gap-2">
-        <GameButton
-          icon="☰"
-          className="bg-blue-500 hover:bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center"
-          onClick={onMenuToggle}
-        />
+        <div className="flex items-center gap-2">
+          <GameButton
+            icon="☰"
+            className="bg-blue-500 hover:bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center"
+            onClick={onMenuToggle}
+          />
+        </div>
       </div>
     </div>
-  )
-} 
+  );
+}
