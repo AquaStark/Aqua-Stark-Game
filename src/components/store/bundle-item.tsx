@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useCartStore } from "@/hooks/store/use-cart-store";
+import Image from "next/image";
 
 interface BundleItemProps {
     id: string;
@@ -67,10 +68,12 @@ export default function BundleItem({
                 {/* Image section */}
                 <div className="flex items-center justify-center md:justify-end mt-4 md:mt-0">
                     <div className="relative w-40 h-40 md:mr-4">
-                        <img
-                            src={image || "/placeholder.svg"}
-                            alt={name}
-                            className="object-contain h-full transform hover:scale-110 transition-all duration-500"
+                        <Image
+                        src={image || "/placeholder.svg"}
+                        alt={name}
+                        width={500} 
+                        height={500} 
+                        className="object-contain h-full transform hover:scale-110 transition-all duration-500"
                         />
                     </div>
                     <motion.button
