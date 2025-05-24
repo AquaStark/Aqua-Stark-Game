@@ -1,13 +1,16 @@
+import { Category } from "@/types/store";
 import { CategoryButton } from "@/components/ui/category-button";
 
 interface StoreCategoriesProps {
-  activeCategory: string;
-  onCategoryChange: (category: string) => void;
+  activeCategory: Category;
+  onCategoryChange: (category: Category) => void;
+  toggleOnSale: () => void;
 }
 
 export function StoreCategories({
   activeCategory,
   onCategoryChange,
+  toggleOnSale,
 }: StoreCategoriesProps) {
   return (
     <div className="flex gap-2 pb-2 mb-6 overflow-x-auto">
@@ -36,8 +39,8 @@ export function StoreCategories({
         RARE
       </CategoryButton>
       <CategoryButton
-        active={activeCategory === "on-sale"}
-        onClick={() => onCategoryChange("on-sale")}
+        active={false}
+        onClick={toggleOnSale}
       >
         % ON SALE
       </CategoryButton>
