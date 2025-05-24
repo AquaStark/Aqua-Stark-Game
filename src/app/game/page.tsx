@@ -1,32 +1,31 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
+import { useState } from "react";
+import Image from "next/image";
 
-import { useAquarium } from "@/hooks/game/use-aquarium"
-import { useFishStats } from "@/hooks/game/use-fish-stats"
-import { useBubbles } from "@/hooks/use-bubbles"
+import { useAquarium } from "@/hooks/game/use-aquarium";
+import { useFishStats } from "@/hooks/game/use-fish-stats";
+import { useBubbles } from "@/hooks/use-bubbles";
 
-import { GameHeader } from "@/components/game/game-header"
-import { GameSidebarButtons } from "@/components/game/game-sidebar-buttons"
-import { AquariumTabs } from "@/components/game/aquarium-tabs"
-import { TipsPopup } from "@/components/game/tips-popup"
-import { FishDisplay } from "@/components/game/fish-display"
-import { GameMenu } from "@/components/game/game-menu"
+import { GameHeader } from "@/components/game/game-header";
+import { AquariumTabs } from "@/components/game/aquarium-tabs";
+import { TipsPopup } from "@/components/game/tips-popup";
+import { FishDisplay } from "@/components/game/fish-display";
+import { GameMenu } from "@/components/game/game-menu";
 
-import { BubblesBackground } from "@/components/effects/bubbles-background"
+import { BubblesBackground } from "@/components/effects/bubbles-background";
 
-import { initialGameState } from "@/data/mock-data-game"
+import { initialGameState } from "@/data/mock-data-game";
 
 export default function Game() {
-  const { happiness, food, energy } = useFishStats(initialGameState)
-  const { selectedAquarium, handleAquariumChange, aquariums } = useAquarium()
-  const [showMenu, setShowMenu] = useState(false)
-  const [showTips, setShowTips] = useState(false)
+  const { happiness, food, energy } = useFishStats(initialGameState);
+  const { selectedAquarium, handleAquariumChange, aquariums } = useAquarium();
+  const [showMenu, setShowMenu] = useState(false);
+  const [showTips, setShowTips] = useState(false);
 
-  const bubbles = useBubbles()
+  const bubbles = useBubbles();
 
-  const handleTipsToggle = () => setShowTips(!showTips)
+  const handleTipsToggle = () => setShowTips(!showTips);
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-[#005C99]">
@@ -60,7 +59,6 @@ export default function Game() {
       />
 
       {showMenu && <GameMenu show={showMenu} />}
-      <GameSidebarButtons />
 
       <div className="absolute bottom-0 right-4 mb-4 z-30">
         <TipsPopup
@@ -76,5 +74,5 @@ export default function Game() {
         onAquariumSelect={handleAquariumChange}
       />
     </div>
-  )
+  );
 }
