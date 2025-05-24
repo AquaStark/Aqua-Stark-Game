@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, X } from "lucide-react";
+import { X } from "lucide-react";
 import { usePurchaseFlow } from "@/hooks/aquarium/use-purchase-flow";
 
 
@@ -14,9 +14,9 @@ interface PurchaseModalProps {
 export function PurchaseModal({
   onCloseAction,
   onPurchaseAction,
-  coinBalance,
+
 }: PurchaseModalProps) {
-  const { purchaseState, handlePurchase } = usePurchaseFlow(
+  const { purchaseState } = usePurchaseFlow(
     onPurchaseAction,
     onCloseAction
   );

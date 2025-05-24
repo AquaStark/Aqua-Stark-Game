@@ -31,7 +31,6 @@ export default function StoreItem({
   description = "",
   rating = 0,
   originalPrice,
-  isNew = false,
   stock,
   isLimited = false,
   onAddToWishlist,
