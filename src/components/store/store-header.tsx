@@ -1,7 +1,8 @@
 import { ArrowLeft, Coins, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useCartStore } from "@/store/use-cart-store";
+import { useCartStore } from "@/hooks/store/use-cart-store";
+import Image from "next/image";
 
 export function StoreHeader() {
   const { items, toggleCart } = useCartStore();
@@ -17,8 +18,8 @@ export function StoreHeader() {
           <ArrowLeft className="mr-2" />
           Back
         </Button>
-        <img
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Aqua_Stark-removebg-preview-ubKSrqYo7jzOH5qXqxEw4CyRHXIjfq.png"
+        <Image
+          src="/logo/aqua-stark.png"
           alt="Aqua Stark Logo"
           width={150}
           height={60}
