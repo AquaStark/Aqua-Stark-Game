@@ -10,6 +10,7 @@ import {
   Palette,
   Layers,
   Hammer,
+  Lightbulb,
 } from "lucide-react";
 import { GameStatusBar } from "./game-status-bar";
 import { GameButton } from "./game-button";
@@ -72,10 +73,13 @@ export function GameHeader({
   onMenuToggle,
 }: GameHeaderProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showTips, setShowTips] = useState(false);
+
+  const handleTipsToggle = () => setShowTips(!showTips);
 
   return (
     <div className="absolute top-0 left-0 right-0 z-20">
-      {/* Mobile Layout (< 1024px) */}
+      {/* Mobile Layout */}
       <div className="lg:hidden">
         <div className="flex justify-between items-center p-3">
           <div className="flex items-center gap-3">
@@ -114,7 +118,7 @@ export function GameHeader({
               </SheetTrigger>
               <SheetContent
                 side="left"
-                className="w-28 p-2 bg-blue-900 flex flex-col justify-center [&>button]:text-white [&>button]:hover:text-gray-200"
+                className="w-28 p-2 bg-blue-900 flex flex-col justify-center"
               >
                 <SheetHeader>
                   <SheetTitle className="sr-only text-white text-lg font-bold mb-4">
@@ -174,7 +178,7 @@ export function GameHeader({
         </div>
       </div>
 
-      {/* Desktop Layout (>= 1024px) */}
+      {/* Desktop Layout */}
       <div className="hidden lg:flex justify-between items-center p-4">
         <div className="flex items-center gap-4">
           <Image
@@ -186,6 +190,13 @@ export function GameHeader({
             priority
           />
         </div>
+
+        <GameButton
+          icon={<Lightbulb className="h-4 w-4" />}
+          tooltip="Tips & Help"
+          className="bg-yellow-500 hover:bg-yellow-600 text-white rounded-full w-10 h-10 shadow-lg"
+          onClick={handleTipsToggle}
+        />
 
         <div className="flex items-center gap-4 bg-blue-900/40 backdrop-blur-sm p-3 rounded-xl">
           <div className="flex items-center gap-2 mr-4 bg-blue-800/50 px-3 py-1 rounded-lg">
@@ -223,7 +234,7 @@ export function GameHeader({
             </SheetTrigger>
             <SheetContent
               side="left"
-              className="w-28 p-2 bg-blue-900 flex flex-col justify-center [&>button]:text-white [&>button]:hover:text-gray-200"
+              className="w-28 p-2 bg-blue-900 flex flex-col justify-center"
             >
               <SheetHeader>
                 <SheetTitle className="sr-only text-white text-lg font-bold mb-4">
