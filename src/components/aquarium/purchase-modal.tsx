@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, X } from "lucide-react";
-import { usePurchaseFlow } from "@/hooks/aquarium/usePurchaseFlow";
+import { usePurchaseFlow } from "@/hooks/aquarium/use-purchase-flow";
 
 
 
