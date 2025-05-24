@@ -1,5 +1,5 @@
 "use client";
-import { Grid, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
@@ -22,33 +22,45 @@ export function AquariumTabs({
 }: AquariumTabsProps) {
   return (
     <div className="absolute bottom-4 left-4 z-30">
-      <div className="flex gap-2">
-        {/* Dropdown para seleccionar acuario */}
+      <div className="flex gap-3">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
               size="sm"
               className={cn(
-                "bg-blue-900/90 border-blue-700 text-white hover:bg-blue-800/90",
-                "backdrop-blur-sm min-w-[120px] justify-between"
+                "bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-400 hover:to-blue-600",
+                "border-2 border-blue-400/50 text-white backdrop-blur-md",
+                "min-w-[120px] justify-between rounded-2xl shadow-xl",
+                "transition-all duration-300 hover:scale-105 hover:shadow-2xl",
+                "relative overflow-hidden"
               )}
             >
-              <span className="truncate max-w-[80px]">{selectedAquarium}</span>
-              <ChevronDown className="h-3 w-3 ml-1 flex-shrink-0" />
+              {/* Efectos de brillo */}
+              <div className="absolute top-1 left-1 w-2 h-2 rounded-full bg-white/30 animate-pulse"></div>
+              <div
+                className="absolute top-3 left-4 w-1.5 h-1.5 rounded-full bg-white/20 animate-pulse"
+                style={{ animationDelay: "0.5s" }}
+              ></div>
+
+              <span className="truncate max-w-[80px] relative z-10">
+                {selectedAquarium}
+              </span>
+              <ChevronDown className="h-3 w-3 ml-1 flex-shrink-0 relative z-10" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="start"
-            className="w-48 bg-blue-900/95 border-blue-700 backdrop-blur-sm"
+            className="w-48 bg-blue-600/90 border-2 border-blue-400/50 backdrop-blur-md rounded-2xl shadow-xl"
           >
             {aquariums.map((aquarium) => (
               <DropdownMenuItem
                 key={aquarium}
                 onClick={() => onAquariumSelect(aquarium)}
                 className={cn(
-                  "text-white hover:bg-blue-800/50 cursor-pointer",
-                  selectedAquarium === aquarium && "bg-blue-700/50"
+                  "text-white hover:bg-blue-500/50 cursor-pointer rounded-xl mx-1 my-0.5",
+                  "transition-all duration-200 hover:scale-105",
+                  selectedAquarium === aquarium && "bg-blue-400/50 shadow-inner"
                 )}
               >
                 {aquarium}
@@ -56,16 +68,6 @@ export function AquariumTabs({
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-
-        {/* Botón View All */}
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => alert("View All Aquariums")}
-          className="bg-blue-900/90 border-blue-700 text-white hover:bg-blue-800/90 backdrop-blur-sm"
-        >
-          <Grid className="h-3 w-3" />
-        </Button>
       </div>
     </div>
   );
