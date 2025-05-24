@@ -12,7 +12,10 @@ export const getTabItems = (tab: string): StoreItem[] => {
       rating: typeof (fish as { rating?: unknown }).rating === "number" ? (fish as { rating?: number }).rating! : 0,
     })) as StoreItem[];
     case "food": return [];
-    case "decorations": return decorationItems;
+    case "decorations": return decorationItems.map(item => ({
+      ...item,
+      rarity: item.rarity as StoreItem["rarity"]
+    })) as StoreItem[];
     case "others": return miscItems as StoreItem[];
     default: return sampleFishData.map(fish => ({
       ...fish,
@@ -52,7 +55,7 @@ export const filterItems = (
 
     const filterCategoryMatch =
       filters.categories.length === 0 ||
-      (item.rarity && filters.categories.includes(item.rarity.toLowerCase()));
+      (item.rarity && filters.categories.includes(item.rarity.toLowerCase() as unknown as typeof filters.categories[number]));
 
     const saleMatch =
       !filters.onSale ||
