@@ -1,29 +1,42 @@
-import { StoreItem, SortState, FilterState } from "@/types/store";
+import { StoreItem, SortState, FilterState, Rarity } from "@/types/store";
 import { sampleFishData } from "@/data/mock-data-game";
 import { miscItems, decorationItems, bundles } from "@/data/mock-data-store";
 
+
+const capitalize = (str: string): Rarity =>
+  (str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()) as Rarity;
+
 export const getTabItems = (tab: string): StoreItem[] => {
   switch (tab) {
-    case "fish": return sampleFishData.map(fish => ({
-      ...fish,
-      id: String((fish as { id?: string | number }).id ?? ""),
-      price: typeof (fish as { price?: unknown }).price === "number" ? (fish as { price?: number }).price! : 0,
-      description: typeof (fish as { description?: unknown }).description === "string" ? (fish as { description?: string }).description! : "",
-      rating: typeof (fish as { rating?: unknown }).rating === "number" ? (fish as { rating?: number }).rating! : 0,
-    })) as StoreItem[];
-    case "food": return [];
-    case "decorations": return decorationItems.map(item => ({
-      ...item,
-      rarity: item.rarity as StoreItem["rarity"]
-    })) as StoreItem[];
-    case "others": return miscItems as StoreItem[];
-    default: return sampleFishData.map(fish => ({
-      ...fish,
-      id: String((fish as { id?: string | number }).id ?? ""),
-      price: typeof (fish as { price?: unknown }).price === "number" ? (fish as { price?: number }).price! : 0,
-      description: typeof (fish as { description?: unknown }).description === "string" ? (fish as { description?: string }).description! : "",
-      rating: typeof (fish as { rating?: unknown }).rating === "number" ? (fish as { rating?: number }).rating! : 0,
-    })) as StoreItem[];
+    case "fish":
+      return sampleFishData.map(fish => ({
+        ...fish,
+        id: String((fish as { id?: string | number }).id ?? ""),
+        price: typeof (fish as { price?: unknown }).price === "number" ? (fish as { price?: number }).price! : 0,
+        description: typeof (fish as { description?: unknown }).description === "string" ? (fish as { description?: string }).description! : "",
+        rating: typeof (fish as { rating?: unknown }).rating === "number" ? (fish as { rating?: number }).rating! : 0,
+      })) as StoreItem[];
+
+    case "food":
+      return [];
+
+    case "decorations":
+      return decorationItems.map(item => ({
+        ...item,
+        rarity: capitalize(item.rarity),
+      })) as StoreItem[];
+
+    case "others":
+      return miscItems as StoreItem[];
+
+    default:
+      return sampleFishData.map(fish => ({
+        ...fish,
+        id: String((fish as { id?: string | number }).id ?? ""),
+        price: typeof (fish as { price?: unknown }).price === "number" ? (fish as { price?: number }).price! : 0,
+        description: typeof (fish as { description?: unknown }).description === "string" ? (fish as { description?: string }).description! : "",
+        rating: typeof (fish as { rating?: unknown }).rating === "number" ? (fish as { rating?: number }).rating! : 0,
+      })) as StoreItem[];
   }
 };
 
