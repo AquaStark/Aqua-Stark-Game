@@ -2,6 +2,7 @@ import { X, Plus, Minus, Trash2, Coins, ShoppingCart } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/hooks/store/use-cart-store";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export function CartSidebar() {
   const {
@@ -65,9 +66,11 @@ export function CartSidebar() {
                       className="bg-blue-600 rounded-lg p-4 mb-4 flex items-center"
                     >
                       <div className="bg-blue-500/50 rounded-lg overflow-hidden w-16 h-16 mx-auto flex items-center justify-center mr-3">
-                        <img
+                        <Image
                           src={item.image}
                           alt={item.name}
+                          width={48} 
+                          height={48}
                           className="w-12 h-12 object-cover rounded"
                         />
                       </div>
