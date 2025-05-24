@@ -1,4 +1,5 @@
 import { Star } from "lucide-react";
+import Image from "next/image";
 
 interface Fish {
   id: string;
@@ -33,13 +34,13 @@ export function FishCard({ fish, delay }: Props) {
         <div className={`absolute top-2 right-2 text-xs px-2 py-0.5 rounded-full ${rarityColor}`}>
           {fish.rarity}
         </div>
-        <img
-          src={fish.imageUrl}
-          alt={fish.name}
-          width={80}
-          height={80}
-          className="h-20 w-auto animate-float-small"
-        />
+      <Image
+        src={fish.imageUrl}
+        alt={fish.name}
+        width={80}
+        height={80}
+        className="h-20 w-auto animate-float-small"
+      />
       </div>
       <div className="p-3">
         <h3 className="font-medium text-sm mb-1">{fish.name}</h3>
