@@ -10,7 +10,6 @@ import {
   Palette,
   Layers,
   Hammer,
-  Lightbulb,
 } from "lucide-react";
 import { GameStatusBar } from "./game-status-bar";
 import { GameButton } from "./game-button";
@@ -73,9 +72,6 @@ export function GameHeader({
   onMenuToggle,
 }: GameHeaderProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [showTips, setShowTips] = useState(false);
-
-  const handleTipsToggle = () => setShowTips(!showTips);
 
   return (
     <div className="absolute top-0 left-0 right-0 z-20">
@@ -190,13 +186,6 @@ export function GameHeader({
             priority
           />
         </div>
-
-        <GameButton
-          icon={<Lightbulb className="h-4 w-4" />}
-          tooltip="Tips & Help"
-          className="bg-yellow-500 hover:bg-yellow-600 text-white rounded-full w-10 h-10 shadow-lg"
-          onClick={handleTipsToggle}
-        />
 
         <div className="flex items-center gap-4 bg-blue-900/40 backdrop-blur-sm p-3 rounded-xl">
           <div className="flex items-center gap-2 mr-4 bg-blue-800/50 px-3 py-1 rounded-lg">
