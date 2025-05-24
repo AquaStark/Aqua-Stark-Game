@@ -1,4 +1,5 @@
-import { Bundle } from "@/data/mock-game";
+import { Bundle } from "@/data/mock-data-game";
+import Image from "next/image";
 
 interface StoreBundleProps {
   bundle: Bundle;
@@ -28,10 +29,12 @@ export function StoreBundle({ bundle, onBuy }: StoreBundleProps) {
         </div>
       </div>
 
-      <img
+      <Image
         src={bundle.image}
         alt={bundle.name}
-        className="hidden w-20 h-w-20 md:block"
+        width={80}
+        height={80}
+        className="hidden w-20 h-20 md:block"
       />
 
       <div className="flex items-center justify-center mt-4 md:ml-3 md:mt-0">
