@@ -1,15 +1,15 @@
-import { Bundle } from "@/data/mock-data-game";
+import { DecorationBundle } from "@/data/mock-data-store";
 import Image from "next/image";
 
 interface StoreBundleProps {
-  bundle: Bundle;
-  onBuy: (bundle: Bundle) => void;
+  bundle: DecorationBundle;
+  onBuy: (bundle: DecorationBundle) => void;
 }
 
 export function StoreBundle({ bundle, onBuy }: StoreBundleProps) {
   return (
     <div className="flex flex-col p-4 mb-4 overflow-hidden rounded-lg bg-gradient-to-r from-blue-700 to-green-700 md:items-center md:flex-row">
-      <div className="flex flex-col flex-1 ">
+      <div className="flex flex-col flex-1">
         <h3 className="text-lg font-bold text-white">
           {bundle.name.toUpperCase()}
         </h3>

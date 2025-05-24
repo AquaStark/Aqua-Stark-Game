@@ -13,8 +13,6 @@ export function SpecialBundles({ bundles }: SpecialBundlesProps) {
 
   const handleBuyBundle = (bundle: DecorationBundle) => {
     const { id, name, image, price } = bundle;
-
-    // Create item object for cart
     const item: CartItem = { id, name, image, price, quantity: 1 };
 
     setTimeout(() => {
