@@ -3,8 +3,7 @@ import { X } from "lucide-react";
 import { useEffect, useState, ChangeEvent } from "react";
 
 // Define types for the component props
-type Category = "all" | "common" | "rare" | "special" | "legendary";
-type PriceRange = [number, number];
+import { Category, PriceRange } from "@/types/store";
 
 interface FilterPanelProps {
   priceRange: PriceRange;
