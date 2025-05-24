@@ -1,22 +1,20 @@
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 
+import { SortState, SortField, SortDirection } from "@/types/store";
+
 interface SortOption {
   label: string;
-  field: string;
-  direction: string;
-}
-
-interface SortState {
-  field: string;
-  direction: string;
+  field: SortField;
+  direction: SortDirection;
 }
 
 interface SortDropdownProps {
   sort: SortState;
-  updateSort: (field: string, direction: string) => void;
+  updateSort: (field: SortField, direction: SortDirection) => void;
   onClose: () => void;
 }
+
 
 export function SortDropdown({ sort, updateSort, onClose }: SortDropdownProps) {
   const sortOptions: SortOption[] = [
@@ -26,7 +24,7 @@ export function SortDropdown({ sort, updateSort, onClose }: SortDropdownProps) {
     { label: "Newest", field: "newest", direction: "desc" },
   ];
 
-  const handleSort = (field: string, direction: string) => {
+  const handleSort = (field: SortField, direction: SortDirection) => {
     updateSort(field, direction);
     onClose();
   };
