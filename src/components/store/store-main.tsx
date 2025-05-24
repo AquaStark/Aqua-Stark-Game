@@ -23,10 +23,11 @@ import { FilterPanel } from "@/components/store/filter-panel";
 import { SortDropdown } from "@/components/store/sort-dropdown";
 import { CartSidebar } from "@/components/store/cart-sidebar";
 
+import { ItemType, Category } from "@/types/store";
 
 export function StoreMain() {
-  const [activeTab, setActiveTab] = useState("fish");
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeTab, setActiveTab] = useState<ItemType>("fish");
+  const [activeCategory, setActiveCategory] = useState<Category>("all");
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
   const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
 
@@ -60,7 +61,6 @@ export function StoreMain() {
       <StoreCarousel />
 
       <div className="max-w-5xl mx-auto overflow-hidden bg-blue-600 border-2 rounded-t-3xl border-blue-400/50">
-        {/* Tabs */}
         <div className="flex">
           <StoreTabs activeTab={activeTab} onTabChange={setActiveTab} />
         </div>
@@ -114,7 +114,6 @@ export function StoreMain() {
 
           <h2 className="mb-4 text-2xl font-bold text-white">{getTabTitle(activeTab)}</h2>
 
-          {/* Search & Sort & Filter Row */}
           <div className="flex flex-col items-center gap-4 mb-6 sm:flex-row">
             <div className="relative flex-grow w-full">
               <Search
@@ -158,7 +157,6 @@ export function StoreMain() {
             </div>
           </div>
 
-          {/* Filter Panel */}
           <AnimatePresence>
             {isFilterPanelOpen && (
               <FilterPanel
@@ -176,7 +174,9 @@ export function StoreMain() {
           <StoreCategories
             activeCategory={activeCategory}
             onCategoryChange={setActiveCategory}
+            toggleOnSale={toggleOnSale}
           />
+
 
           {shouldShowBundles && <BundleGrid bundles={bundles} />}
           {shouldShowSpecialBundles && decorationBundles.length > 0 && (
@@ -188,7 +188,6 @@ export function StoreMain() {
         </div>
       </div>
 
-      {/* ✅ CartSidebar agregado aquí, funcional */}
       <CartSidebar />
     </div>
   );
