@@ -1,4 +1,5 @@
 import { Edit, Trash2, Eye } from "lucide-react";
+import Image from "next/image";
 
 interface Aquarium {
   id: number;
@@ -21,9 +22,11 @@ export function AquariumCard({ aquarium }: AquariumCardProps) {
   return (
     <div className="bg-blue-800/40 border border-blue-700/50 rounded-lg overflow-hidden">
       <div className="relative">
-        <img
+        <Image
           src={aquarium.image || "/placeholder.svg"}
           alt={aquarium.name}
+          width={800} 
+          height={192} 
           className="w-full h-48 object-cover"
         />
         <div className="absolute top-2 left-2 bg-blue-900/70 text-white px-2 py-1 rounded-md text-sm flex items-center">
