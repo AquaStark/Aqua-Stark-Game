@@ -1,5 +1,4 @@
-import { Rarity } from "@/data/mock-game";
-import { SortOption } from "@/hooks/use-store-filters";
+import { SortOption, Rarity } from "@/types/store";
 import { Filter, Search, Tag } from "lucide-react";
 import { useState } from "react";
 
@@ -61,7 +60,7 @@ export function StoreSearchFilters({
               <div className="mb-0">
                 <h3 className="mb-2 font-medium">Rarity</h3>
                 {rarityOptions.map((option) => (
-                  <div key={option.value} className="mb-1">
+                  <div key={String(option.value)} className="mb-1">
                     <label className="flex items-center">
                       <input
                         type="radio"
@@ -96,7 +95,7 @@ export function StoreSearchFilters({
           {showSort && (
             <div className="absolute right-0 z-30 w-48 p-4 mt-2 text-blue-100 bg-blue-700 border rounded-md shadow-lg border-blue-400/50">
               {sortOptions.map((option) => (
-                <div key={option.value} className="mb-1">
+                <div key={String(option.value)} className="mb-1">
                   <label className="flex items-center">
                     <input
                       type="radio"
